@@ -275,7 +275,7 @@ html.bp-on .L{ display:block; padding:0; max-width:none; }
 .bp-card.on{ opacity:1; transform:none; pointer-events:auto; }
 .bp-card .s-head{ margin-bottom:26px; padding-top:12px; }
 .bp-card .s-head::before{ transform:none !important; }
-.desc,.toggle{ display:none; }
+.desc,.toggle,.meta{ display:none; }
 .bp-card .num{ font-size:15px; color:var(--rust-ink); margin-bottom:4px; }
 .bp-card .s-head h2{ font-size:40px; max-width:none; }
 /* 01 : texte dans les travées de la colonnade */
