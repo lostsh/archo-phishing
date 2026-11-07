@@ -1,0 +1,30 @@
+name: Problème d'affichage ou bug
+description: Quelque chose s'affiche mal ou ne fonctionne pas.
+labels: [bug]
+body:
+  - type: dropdown
+    id: page
+    attributes:
+      label: Page concernée
+      options: [index.html (grand public), dev.html (développeurs), Les deux]
+    validations:
+      required: true
+  - type: textarea
+    id: probleme
+    attributes:
+      label: Ce qui se passe
+      description: Ce que tu vois, et ce que tu attendais. Une capture d'écran aide beaucoup.
+    validations:
+      required: true
+  - type: input
+    id: environnement
+    attributes:
+      label: Navigateur, système et taille d'écran
+      placeholder: Firefox 140, macOS, 2560 x 1440
+    validations:
+      required: true
+  - type: dropdown
+    id: theme
+    attributes:
+      label: Thème
+      options: [Clair, Sombre, Les deux]
