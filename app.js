@@ -483,6 +483,8 @@
       var first = q(".s"); first.parentNode.insertBefore(bp, first);
       stage = bp.querySelector(".bp-stage"); world = bp.querySelector(".bp-world"); hero = bp.querySelector(".bp-hero"); cap = bp.querySelector(".bp-cap");
       svg = mk("svg", { "class":"bp-svg", viewBox:"0 0 " + W + " " + H, width:W, height:H, "aria-hidden":"true" }, world);
+      var CAP = { s1:"s1", s2:"s2", s4:"t1", s5:"s5", s6:"s6" };
+      Object.keys(CAP).forEach(function(id){ var sec = q("#" + id), c = sec && sec.getAttribute("data-cap"); if (c) STOPS.forEach(function(st){ if (st.key === CAP[id]) st.label = c; }); });
       draw(); buildCards();
       [".hero-text .sheet", ".hero-text h1", ".hero-text .lead"].forEach(function(s){ hero.appendChild(clean(q(s))); });
       mini = bp.querySelector(".bp-mini");
@@ -496,10 +498,11 @@
     }
 
     function camFor(stop, vw, vh, top){
-      var r = stop.cam, availW = stop.side ? vw * .6 : vw * .88, availH = (vh - top) * .86;
+      var heroR = Math.max(48, vw / 2 - 620 + 48) + Math.min(vw * .34, 470), sideL = heroR + 56, sideR = vw - 48;
+      var r = stop.cam, availW = stop.side ? sideR - sideL : vw * .88, availH = (vh - top) * .86;
       var s = Math.min(availW / r[2], availH / r[3], .9);
       var cx = r[0] + r[2] / 2, cy = r[1] + r[3] / 2;
-      var sx = stop.side ? vw * .67 : vw / 2, sy = top + (vh - top) / 2 + (stop.side ? 10 : 0);
+      var sx = stop.side ? (sideL + sideR) / 2 : vw / 2, sy = top + (vh - top) / 2 + (stop.side ? 10 : 0);
       return { s:s, x:cx, y:cy, sx:sx, sy:sy };
     }
     var ease = function(t){ return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
