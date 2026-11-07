@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Le bon réflexe, édition développeurs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,200..600;1,300..400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="bar">
+  <div class="bar-in">
+    <a class="mark" href="#top">Le bon réflexe</a>
+    <span class="bar-meta">Édition développeurs</span>
+    <button class="mode" id="modeBtn" type="button">Sombre</button>
+  </div>
+  <span class="progress" aria-hidden="true"><i id="prog"></i></span>
+</header>
+
+<main id="top" class="L">
+    <div class="hero-text">
+      <p class="sheet">Planche 00, édition développeurs</p>
+      <h1>Pas besoin de tout auditer. Juste de t’arrêter au bon moment.</h1>
+      <p class="lead">Installer, cloner, coller une commande : c’est ton quotidien, et ça se fait en pilote auto. Les attaquants l’ont compris. Ils ne cherchent plus seulement ton mot de passe : ils veulent que tu exécutes leur code, avec tes droits, sur ton poste.</p>
+    </div>
+    <figure class="plate">
+      <svg class="drawing" id="pavilion" viewBox="0 0 1200 560" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="pvT">
+        <title id="pvT">Croquis d’un pavillon de verre dans une forêt. Une seule travée est colorée : le moment où tu reprends la main. Tout le reste du bâtiment représente le pilote auto.</title>
+      </svg>
+      <figcaption class="scale">
+        <div class="scale-bar" id="scaleBar" aria-hidden="true"></div>
+        <p class="scale-cap"><span class="key"></span>Échelle : une journée. En couleur, les quelques secondes où tu reprends la main.</p>
+      </figcaption>
+    </figure>
+
+  <section class="s" id="s1" data-sketch="axo" data-cap="Planche 01, le principe">
+    <div class="grid">
+      <header class="s-head"><span class="num">01</span><h2>Le principe</h2></header>
+      <ol class="bays">
+        <li><span class="k">Phase 1</span><h3>Pilote auto</h3><p><code>npm install</code>, <code>git clone</code>, un bout de code copié depuis la doc : tu le fais cent fois par jour sans y penser. C’est normal.</p></li>
+        <li><span class="k">Phase 2</span><h3>Un signal</h3><p>Quelque chose te pousse à exécuter, installer ou autoriser, en dehors de ton flux habituel.</p></li>
+        <li class="manual"><span class="k">Phase 3</span><h3>Mode manuel</h3><p>Trente secondes : d’où vient ce code, et qu’est-ce qu’il va faire ?</p></li>
+        <li><span class="k">Phase 4</span><h3>Retour au pilote auto</h3><p>Vérifié ? Tu continues. Douteux ? Tu signales, et tu continues.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="s" id="s2" data-sketch="wall" data-cap="Planche 02, le signal">
+    <div class="grid">
+      <header class="s-head"><span class="num">02</span><h2>Le signal : exécuter, hors contexte</h2></header>
+      <div class="body">
+        <p class="intro">Du code malveillant ressemble à du code légitime : même syntaxe, même commande d’installation, parfois le vrai nom du projet à une lettre près. Ce qui le trahit, c’est le contexte : quelqu’un veut que tu exécutes quelque chose, maintenant.</p>
+        <div class="cols">
+          <div><h3>On te demande de…</h3><ul class="lines"><li>coller une commande dans un terminal ou dans Exécuter</li><li>lancer un <code>curl … | bash</code> ou un installeur</li><li>installer un paquet, une extension, une dépendance</li><li>autoriser une app OAuth ou entrer un code d’appareil</li></ul></div>
+          <div><h3>Et le contexte cloche…</h3><ul class="lines"><li>une page web qui veut passer par ton terminal</li><li>un domaine presque juste</li><li>une urgence : « ton token expire aujourd’hui »</li><li>un inconnu : recruteur, contributeur, issue sortie de nulle part</li></ul></div>
+        </div>
+        <p class="rule">Exécuter, plus un contexte inattendu : tu passes en manuel.</p>
+        <p class="rule-sub">Dans le doute, une seule question : est-ce que j’ai moi-même décidé d’exécuter ça, depuis une source que je connais ?</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s" id="s3" data-sketch="stair">
+    <div class="grid">
+      <header class="s-head"><span class="num">03</span><h2>En manuel : trois gestes</h2></header>
+      <ol class="gest">
+        <li><span class="n">1</span><h3>Stop</h3><p>Ne colle rien, n’exécute rien. Une page web n’a jamais besoin de ton terminal pour vérifier que tu es humain.</p></li>
+        <li><span class="n">2</span><h3>Lis avant d’exécuter</h3><p>Récupère la commande sur la doc officielle, en tapant le domaine toi-même. Pour un script, télécharge-le, lis-le, puis décide.</p></li>
+        <li><span class="n">3</span><h3>Relâche</h3><p>Légitime ? Installe et continue. Douteux ? Signale-le à l’équipe sécurité avec l’URL, la commande ou le paquet.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="s" id="s4" data-sketch="axo2" data-cap="Planche 04, les pièges à connaître">
+    <div class="grid">
+      <header class="s-head"><span class="num">04</span><h2>Les pièges à connaître</h2></header>
+      <ul class="notes">
+        <li><h3>Le faux CAPTCHA qui te fait coller une commande</h3><p>« Appuie sur Win + R, puis Ctrl + V, puis Entrée », ou « colle ceci dans ton Terminal » : c’est ClickFix. La page a déjà copié la commande dans ton presse-papiers.</p></li>
+        <li><h3><code>curl | bash</code> depuis un domaine presque juste</h3><p>Le format est légitime, c’est le domaine qui ment. De fausses annonces ont déjà imité la page d’installation de Homebrew. Vérifie le domaine caractère par caractère.</p></li>
+        <li><h3>Un paquet au nom presque juste</h3><p>Typosquatting, ou nom inventé par une IA puis enregistré par un attaquant. Avant d’installer : éditeur, âge du paquet, nombre de téléchargements.</p></li>
+        <li><h3><code>npm install</code> exécute du code</h3><p>Les scripts <code>preinstall</code> et <code>postinstall</code> tournent avec tes droits. Pour un dépôt inconnu : <code>--ignore-scripts</code>, ou un conteneur jetable.</p></li>
+        <li><h3>Le test technique d’un recruteur</h3><p>« Clone ce projet et lance-le » : technique connue pour infecter les postes de développeurs. Lance-le dans une VM ou un conteneur, jamais sur ta machine de travail.</p></li>
+        <li><h3>Le mail « mets à jour ta 2FA npm »</h3><p>En 2025, un faux domaine de support npm a suffi pour prendre le compte d’un mainteneur de paquets très utilisés. Tokens et 2FA se gèrent sur le site officiel, jamais via un lien.</p></li>
+        <li><h3>Un code d’appareil que tu n’as pas demandé</h3><p>Le phishing par code d’appareil passe par la vraie page de connexion. Si tu n’as pas lancé la connexion, n’entre pas le code. Pareil pour une app OAuth qui veut tes dépôts.</p></li>
+        <li><h3>Extensions et GitHub Actions : du code tiers</h3><p>Des Actions populaires ont déjà été compromises. Épingle-les par SHA de commit, et vérifie l’éditeur d’une extension avant de l’installer.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="s" id="s5" data-sketch="wall2" data-cap="Planche 05, ce que tu risques">
+    <div class="grid">
+      <header class="s-head"><span class="num">05</span><h2>Ce que tu risques, toi</h2></header>
+      <ul class="risks">
+        <li><h3>Tes secrets</h3><p>Clés SSH, tokens, fichiers <code>.env</code>, cookies de session : volés en quelques secondes.</p></li>
+        <li><h3>Tes comptes</h3><p>GitHub, npm, cloud, gestionnaire de mots de passe : tout ce qui est ouvert sur ton poste.</p></li>
+        <li><h3>Ton nom sur du code piégé</h3><p>Ton compte publie une version malveillante, et d’autres l’installent en te faisant confiance.</p></li>
+        <li><h3>Tes collègues</h3><p>Depuis ton poste, l’attaquant rebondit sur les dépôts, la CI, puis le reste.</p></li>
+        <li><h3>Ta machine, enrôlée</h3><p>Recrutée dans un réseau de machines piratées pour attaquer hôpitaux, services publics ou entreprises.</p></li>
+        <li><h3>Ton temps</h3><p>Tous les secrets à renouveler, le poste à réinstaller, et le stress qui va avec.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="s" id="s6" data-sketch="frame" data-cap="Planche 06, la sortie">
+    <div class="grid">
+      <header class="s-head"><span class="num">06</span><h2>Tu as exécuté ? Agis vite, sans honte</h2></header>
+      <div class="body">
+        <ol class="fix">
+          <li><p><b>Coupe le réseau</b> de la machine, sans l’éteindre.</p></li>
+          <li><p><b>Préviens l’équipe sécurité tout de suite</b>, avec la commande, l’URL ou le paquet en cause.</p></li>
+          <li><p><b>Renouvelle tes secrets depuis une autre machine</b> : tokens, clés SSH, sessions.</p></li>
+          <li><p><b>Ne nettoie pas toi-même</b> : supprimer des fichiers efface les traces dont l’équipe a besoin.</p></li>
+        </ol>
+        <p class="closing">Personne ne te reprochera d’avoir collé une commande. Ce qui coûte cher, c’est de te taire.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="foot-line">Un doute sur une commande ou un paquet ? Envoie-le à l’équipe sécurité avant de l’exécuter.</p>
+    <dl class="cartouche">
+      <div><dt>Projet</dt><dd>Le bon réflexe, édition développeurs</dd></div>
+      <div><dt>Planches</dt><dd>00 à 06</dd></div>
+      <div><dt>Échelle</dt><dd>À hauteur de terminal</dd></div>
+      <div><dt>Dessiné par</dt><dd>Phyl</dd></div>
+    </dl>
+  </div>
+</footer>
+
+<script src="app.js" defer></script>
+</body>
+</html>
