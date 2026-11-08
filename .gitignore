@@ -1,7 +1,0 @@
-.DS_Store
-Thumbs.db
-node_modules/
-__pycache__/
-.venv/
-_site/
-test-results/
