@@ -131,6 +131,24 @@ h3{ font-family:var(--f-body); font-weight:var(--w-strong); font-size:16.5px; li
 .rule{ margin-top:72px; font-family:var(--f-display); font-weight:var(--w-head); font-size:calc(var(--fs-d) * clamp(30px,3.4vw,46px)); line-height:1.14; letter-spacing:var(--ls-display); max-width:20ch; }
 .rule::before{ content:""; display:block; width:56px; height:1px; background:var(--rust); margin-bottom:26px; }
 .rule-sub{ margin-top:18px; color:var(--ink-2); max-width:52ch; }
+.sub{ margin-top:88px; margin-bottom:14px; font-family:var(--f-display); font-weight:400; font-size:26px; }
+.acc details{ border-top:1px solid var(--hair); }
+.acc details:last-child{ border-bottom:1px solid var(--hair); }
+.acc summary{ list-style:none; cursor:pointer; display:grid; grid-template-columns:minmax(0,1fr) 28px; column-gap:20px; padding:22px 0; }
+.acc summary::-webkit-details-marker{ display:none; }
+.from{ grid-column:1; font-size:13px; color:var(--ink-3); }
+.msg{ grid-column:1; font-family:var(--f-display); font-size:22px; line-height:1.3; margin-top:4px; transition:color .3s; }
+.acc summary:hover .msg{ color:var(--ink-2); }
+.plus{ grid-column:2; grid-row:1 / span 2; align-self:center; position:relative; width:18px; height:18px; justify-self:end; }
+.plus::before,.plus::after{ content:""; position:absolute; left:0; right:0; top:50%; height:1px; background:var(--ink); transition:transform .5s var(--ease); }
+.plus::after{ transform:rotate(90deg); }
+details[open] .plus::after{ transform:rotate(0); }
+details::details-content{ block-size:0; overflow:hidden; transition:block-size .55s var(--ease), content-visibility .55s allow-discrete; }
+details[open]::details-content{ block-size:auto; }
+.ans{ padding:0 48px 26px 0; color:var(--ink-2); max-width:62ch; }
+.ans b{ font-weight:500; color:var(--ink); }
+.ans.yes b{ color:var(--rust-ink); }
+
 /* gestes */
 .gest{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; border-top:1px solid var(--hair-2); }
 .gest li{ padding:26px 26px 10px 0; }
@@ -257,7 +275,7 @@ html.bp-on .L{ display:block; padding:0; max-width:none; }
 .bp-card.on{ opacity:1; transform:none; pointer-events:auto; }
 .bp-card .s-head{ margin-bottom:26px; padding-top:12px; }
 .bp-card .s-head::before{ transform:none !important; }
-.desc,.toggle,.meta{ display:none; }
+.desc,.toggle{ display:none; }
 .bp-card .num{ font-size:15px; color:var(--rust-ink); margin-bottom:4px; }
 .bp-card .s-head h2{ font-size:40px; max-width:none; }
 /* 01 : texte dans les travées de la colonnade */

@@ -51,6 +51,25 @@
     this.g = saved;
   };
   Sketch.prototype.rect = function(x, y, w, h, cls, o){ this.poly([[x, y], [x + w, y], [x + w, y + h], [x, y + h], [x, y]], cls, o); };
+  /* pin élancé, à la manière d'un croquis d'architecte */
+  Sketch.prototype.pine = function(x, gy, h, cls){
+    var r = this.r, top = gy - h, lean = (r() - .5) * 10;
+    this.line(x, gy, x + lean * .4, gy - h * .55, cls, { ext:0, double:false });
+    this.line(x + lean * .4, gy - h * .55, x + lean, top, cls, { ext:0, double:false });
+    this.line(x + 1.6, gy, x + lean * .4 + 1.2, gy - h * .5, "f", { ext:0, double:false });
+    var start = .48 + r() * .12;
+    for (var t = start; t < .98; t += .035 + r() * .03){
+      var bx = x + lean * t, by = gy - h * t, side = r() < .5 ? -1 : 1, L = (1 - t) * h * (.16 + r() * .14) + 5;
+      var ex = bx + side * L, ey = by + L * (.18 + r() * .25);
+      this.line(bx, by, ex, ey, "t", { ext:1, double:false });
+      var n = 3 + Math.floor(r() * 5);
+      for (var j = 0; j < n; j++){
+        var px = bx + (ex - bx) * (.35 + r() * .7), py = by + (ey - by) * (.35 + r() * .7) + (r() - .5) * 8, l = 3 + r() * 8, an = (r() - .5) * 1.2 + (side > 0 ? .3 : Math.PI - .3);
+        this.line(px, py, px + Math.cos(an) * l, py + Math.sin(an) * l, "f", { ext:0, double:false });
+      }
+    }
+  };
+
   /* ---------- outils de dessin supplémentaires ---------- */
   /* gribouillis continu : feuillage, massifs */
   Sketch.prototype.scribble = function(cx, cy, rx, ry, n, cls, d){
@@ -234,6 +253,55 @@
     box._svg = svg;
   }
 
+  /* ---------- croquis en transparence des sections ---------- */
+  var OVERLAYS = {
+    axo:function(s){
+      s.poly([[110,62],[160,40],[160,262],[110,284],[110,62]], "t");
+      s.hatch([[110,62],[160,40],[160,262],[110,284]], 70, 7, "h");
+      s.line(20, 102, 350, -44, "f", { ext:10 }); s.line(30, 322, 350, 180, "f", { ext:10 });
+      s.line(212, 6, 212, 300, "t", { ext:12 }); s.line(186, 120, 186, 186, "f");
+      s.poly([[252,128],[310,102],[310,206],[252,232],[252,128]], "t");
+      s.poly([[252,128],[244,122],[302,96],[310,102]], "f"); s.line(244, 122, 244, 226, "f"); s.line(244, 226, 252, 232, "f");
+      s.hatch([[252,200],[310,174],[310,206],[252,232]], 64, 5, "h");
+      s.line(160, 262, 252, 232, "f", { ext:4 }); s.line(160, 40, 310, -26, "f", { ext:4 });
+    },
+    wall:function(s){
+      s.line(150, 10, 150, 350, "t", { ext:12 }); s.line(178, 10, 178, 350, "t", { ext:12 });
+      s.hatch([[150,10],[178,10],[178,350],[150,350]], 60, 6, "h");
+      s.line(30, 150, 350, 150, "t", { ext:14 }); s.line(30, 160, 350, 160, "t", { ext:14 });
+      s.hatch([[30,150],[150,150],[150,160],[30,160]], 30, 7, "h");
+      s.line(178, 100, 270, 100, "t"); s.line(270, 94, 270, 106, "f", { ext:0 });
+      s.line(196, 160, 196, 300, "f"); s.line(204, 160, 204, 300, "f");
+      s.line(178, 290, 350, 290, "t", { ext:10 }); s.line(178, 300, 350, 300, "t", { ext:10 });
+      s.line(20, 172, 20, 240, "f", { ext:0 }); s.line(14, 172, 26, 172, "f", { ext:0 });
+    },
+    stair:function(s){
+      var p = [[30,320]]; for (var i = 0; i < 9; i++){ p.push([30 + i * 32, 320 - (i + 1) * 28]); p.push([30 + (i + 1) * 32, 320 - (i + 1) * 28]); }
+      s.poly(p, "t", { double:false });
+      s.line(30, 320, 318, 68, "f", { ext:14 }); s.hatch([[30,320],[318,68],[318,330],[30,330]], 45, 8, "h");
+      s.line(30, 270, 318, 18, "t", { ext:10 }); for (var k = 0; k < 9; k += 2) s.line(46 + k * 32, 320 - (k + 1) * 28, 46 + k * 32, 270 - (k + .5) * 28, "f", { ext:0 });
+    },
+    axo2:function(s){
+      s.poly([[70,90],[250,40],[330,90],[150,140],[70,90]], "t");
+      s.poly([[70,90],[70,250],[150,300],[150,140]], "t"); s.line(150, 300, 330, 250, "t"); s.line(330, 250, 330, 90, "t");
+      s.hatch([[70,90],[150,140],[150,300],[70,250]], 80, 7, "h");
+      s.line(0, 47, 360, 268, "f", { ext:10 }); s.line(250, 0, 250, 40, "f", { ext:6 });
+      s.line(110, 115, 290, 65, "f"); s.line(200, 130, 200, 290, "f");
+    },
+    wall2:function(s){
+      s.line(160, 0, 160, 360, "t", { ext:10 }); s.line(192, 0, 192, 360, "t", { ext:10 });
+      s.line(0, 120, 360, 120, "t", { ext:10 }); s.line(0, 144, 360, 144, "t", { ext:10 });
+      s.hatch([[160,120],[192,120],[192,144],[160,144]], 45, 3.5, "h");
+      s.line(40, 90, 160, 90, "f", { ext:0 }); s.line(40, 84, 40, 96, "f", { ext:0 }); s.line(160, 84, 160, 96, "f", { ext:0 });
+      s.line(220, 144, 220, 330, "f"); s.line(230, 144, 230, 330, "f");
+    }
+  };
+  OVERLAYS.frame = function(s){
+    s.rect(110, 40, 150, 280, "t"); s.rect(124, 54, 122, 252, "f");
+    s.line(20, 320, 350, 320, "t", { ext:14 }); s.line(110, 20, 110, 350, "f", { ext:6 }); s.line(260, 20, 260, 350, "f", { ext:6 });
+    s.hatch([[110,40],[124,54],[124,306],[110,320]], 70, 5, "h"); s.line(124, 180, 246, 180, "f");
+    s.line(110, 340, 260, 340, "f", { ext:0 }); s.line(110, 334, 110, 346, "f", { ext:0 }); s.line(260, 334, 260, 346, "f", { ext:0 });
+  };
   /* ---------- apparitions ---------- */
   document.querySelectorAll(".hero-text .sheet, .hero-text h1, .hero-text .lead").forEach(function(e, i){ e.classList.add("rv"); e.style.setProperty("--rd", (.1 + i * .18) + "s"); });
   document.querySelectorAll(".s").forEach(function(sec){
