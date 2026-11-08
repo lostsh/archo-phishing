@@ -1,0 +1,30 @@
+name: Proposer ou corriger un contenu
+description: Un nouveau piège à connaître, une astuce, une correction de fond.
+labels: [contenu]
+body:
+  - type: dropdown
+    id: page
+    attributes:
+      label: Édition
+      options: [Grand public (index.html), Développeurs (dev.html)]
+    validations:
+      required: true
+  - type: dropdown
+    id: section
+    attributes:
+      label: Section
+      options: [01 Le principe, 02 Le signal, 03 Trois gestes, 04 Astuces ou pièges, 05 Risques, 06 Après un clic]
+    validations:
+      required: true
+  - type: textarea
+    id: proposition
+    attributes:
+      label: Ta proposition
+      description: Le texte tel que tu l'imagines. Court, concret, tutoiement. Rien de déjà connu de tous.
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: Pour tout fait précis (incident, chiffre, technique d'attaque), un lien vers une source fiable.
